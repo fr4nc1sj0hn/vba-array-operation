@@ -249,6 +249,7 @@ Sub TestArrayOps()
         Debug.Print Left(row, Len(row) - 1)
     Next
 End Sub
+```
 
 ## Using the class in Logistic Regression Classification
 ```VBA
@@ -285,3 +286,4 @@ Sub logit()
     Application.ScreenUpdating = True
     
 End Sub
+```
