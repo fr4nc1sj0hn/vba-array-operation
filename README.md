@@ -249,3 +249,39 @@ Sub TestArrayOps()
         Debug.Print Left(row, Len(row) - 1)
     Next
 End Sub
+
+## Using the class in Logistic Regression Classification
+```VBA
+Sub logit()
+    Application.ScreenUpdating = False
+    
+    Dim logit As New LogisticRegression
+    Dim coefficients As Variant
+    Dim lr As Double, threshold As Double
+    Dim X As Variant, labels As Variant, x_pred As Variant, y_pred As Variant
+    lr = 0.1
+    threshold = 0.6
+    
+    Dim i As Integer, j As Integer, row As String, iter As Long
+    Dim z As Variant, h As Variant, x_t As Variant, error As Variant, gradient As Variant
+    Dim ones As Variant
+    
+    X = Sheets("NBA Data").Range("A2:G800").Value
+    labels = Sheets("NBA Data").Range("H2:H800").Value
+  
+    x_pred = Sheets("TestData").Range("A2:G101").Value
+
+    logit.InitializeProperties learning_rate:=lr, iterations:=10000
+    
+    Call logit.fit(X, labels)
+    
+    y_pred = logit.predict(x_pred, threshold)
+    
+
+    For i = LBound(y_pred, 1) To UBound(y_pred, 1)
+        Sheets("TestData").Cells(i + 1, 9).Value = y_pred(i)
+    Next
+    
+    Application.ScreenUpdating = True
+    
+End Sub
